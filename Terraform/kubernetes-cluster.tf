@@ -14,12 +14,18 @@ resource "azurerm_kubernetes_cluster" "aks101" {
         vm_size         = "Standard_DS2_v2"
     }
 
-    #
     # Instead of creating a service principle have the system figure this out.
     #
     identity {
         type = "SystemAssigned"
     }    
+}
+
+resource "azurerm_role_assignment" "role_assignment" {
+  principal_id                     = azurerm_kubernetes_cluster.aks101.kubelet_identity[0].object_id
+  role_definition_name             = "AcrPull"
+  scope                            = azurerm_container_registry.registry101.id
+  skip_service_principal_aad_check = true
 }
 
 
