@@ -35,7 +35,3 @@ output "kube_config" {
   value = azurerm_kubernetes_cluster.aks101.kube_config_raw
   sensitive = true
 }
-
-output "kubernetes_cluster_name" {
-  value = azurerm_kubernetes_cluster.aks101.name
-}

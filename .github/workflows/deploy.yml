@@ -78,17 +78,14 @@ jobs:
           VERSION: ${{ github.sha }}
         run: ./scripts/push-image.sh
 
-      - name: Get Kubernetes Config
-        working-directory: ./Terraform
+      - name: Get AKS credentials
         run: |
-          KUBECONFIG_CONTENT=$(terraform-bin output -raw kube_config)
-          echo "KUBECONFIG_CONTENT=$KUBECONFIG_CONTENT" >> $GITHUB_ENV
+          az aks get-credentials --resource-group registry101 --name aks101 --overwrite-existing
+    
 
-      - name: Set up kubectl
-        uses: tale/kubectl-action@v1
-        with:
-          base64-kube-config: ${{ env.KUBECONFIG_CONTENT }}
-          kubectl-version: v1.30.2
+      - name: Attach ACR to AKS
+        run: az aks update -n aks101 -g sit722project --attach-acr registry101
+
 
       - name: Deploy microservices
         env:
