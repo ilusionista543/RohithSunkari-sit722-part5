@@ -59,7 +59,15 @@ jobs:
         run: |
           echo ${{ secrets.CLIENT_SECRET }} | docker login ${{ env.CONTAINER_REGISTRY }}.azurecr.io -u ${{ secrets.CLIENT_ID }} --password-stdin
            
-      
+       # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
       - name: Make sh files executable
         working-directory: ./scripts/
