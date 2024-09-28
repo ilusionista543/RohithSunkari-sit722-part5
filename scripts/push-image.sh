@@ -1,4 +1,3 @@
-#
 # Publishes both the Docker images.
 #
 # Environment variables:
