@@ -13,10 +13,6 @@ jobs:
 
     env:
       VERSION: ${{ github.sha }}
-      CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
-      REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
-      REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}
-      DB_URL: ${{ secrets.DB_URL }}
     
 
     steps:
@@ -63,14 +59,14 @@ jobs:
         working-directory: ./scripts/
         run: chmod +x *.sh
 
-      - name: Build docker images
+      - name: Build Docker images
         env:
           CONTAINER_REGISTRY: ${{ env.CONTAINER_REGISTRY }}
           VERSION: ${{ github.sha }}
         run: ./scripts/build-image.sh
 
 
-      - name: Push docker images
+      - name: Push Docker images
         env:
           CONTAINER_REGISTRY: ${{ env.CONTAINER_REGISTRY }}
           VERSION: ${{ github.sha }}
