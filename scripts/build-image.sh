@@ -12,7 +12,7 @@ docker-compose up --build -d
 
 echo "Docker images built successfully."
 
-docker tag book_catalog:latest $CONTAINER_REGISTRY.azurecr.io/book_catalog:latest
-docker tag inventory_management:latest $CONTAINER_REGISTRY.azurecr.io/inventory_management:latest
+docker tag book-catalog:latest $CONTAINER_REGISTRY.azurecr.io/book-catalog:latest
+docker tag inventory-management:latest $CONTAINER_REGISTRY.azurecr.io/inventory-management:latest
 
 
