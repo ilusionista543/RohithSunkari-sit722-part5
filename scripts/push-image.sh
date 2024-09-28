@@ -1,21 +1,12 @@
 #
-# Publishes a Docker image.
+# Publishes both the Docker images.
 #
 # Environment variables:
 #
 #   CONTAINER_REGISTRY - The hostname of your container registry.
-#   REGISTRY_UN - User name for your container registry.
-#   REGISTRY_PW - Password for your container registry.
-#   VERSION - The version number to tag the images with.
-#
 
 set -u # or set -o nounset
 : "$CONTAINER_REGISTRY"
-: "$REGISTRY_UN"
-: "$REGISTRY_PW"
-
-
-echo $REGISTRY_PW | docker login $CONTAINER_REGISTRY --username $REGISTRY_UN --password-stdin
 
 docker push $CONTAINER_REGISTRY.azurecr.io/book_catalog:latest
 docker push $CONTAINER_REGISTRY.azurecr.io/inventory_management:latest
