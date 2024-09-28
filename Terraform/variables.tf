@@ -1,16 +1,7 @@
 # Sets global variables for this Terraform project.
 
-
-variable "resource_group_name" {
-  default = "sit722project"
-}
-
-variable "cluster_name" {
-  default = "aks101"
-}
-
-variable "acr_name" {
-  default = "registry101'
+variable app_name {
+  default = "part5app"
 }
 
 variable location {
