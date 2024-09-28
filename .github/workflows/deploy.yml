@@ -101,7 +101,7 @@ jobs:
           VERSION: ${{ github.sha }}
         run: ./scripts/deploy.sh
 
-      - script: sleep 120
+      - run: sleep 120
 
       - name: Get kube details
         run: |
@@ -109,5 +109,6 @@ jobs:
               kubectl get deployments
               kubectl get services
 
-      - script: sleep 900
-        displayName: Sleep for 15 minutes for testing
+      - name: Sleep for 15 minutes
+        run: sleep 900  
+
