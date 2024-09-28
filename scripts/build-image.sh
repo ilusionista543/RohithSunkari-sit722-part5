@@ -11,8 +11,3 @@
 docker-compose up --build -d
 
 echo "Docker images built successfully."
-
-# Step 2: Tag the Docker image with an additional tag (e.g., latest)
-
-docker tag book-catalog:$VERSION $CONTAINER_REGISTRY/book-catalog:$VERSION
-docker tag inventory-management:$VERSION $CONTAINER_REGISTRY/inventory-management:$VERSION
