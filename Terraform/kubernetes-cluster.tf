@@ -21,6 +21,7 @@ resource "azurerm_kubernetes_cluster" "aks101" {
     }    
 }
 
+#Attaches the container registry to the cluster
 resource "azurerm_role_assignment" "role_assignment" {
   principal_id                     = azurerm_kubernetes_cluster.aks101.kubelet_identity[0].object_id
   role_definition_name             = "AcrPull"
