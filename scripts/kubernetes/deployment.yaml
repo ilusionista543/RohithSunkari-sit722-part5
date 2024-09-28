@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-catalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-catalog
+  template:
+    metadata:
+      labels:
+        app: book-catalog
+    spec:
+      containers:
+      - name: book-catalog
+        image: registry101.azurecr.io/book-catalog:latest
+        imagePullPolicy: Always
+        env:
+        - name: PORT
+          value: "8001"
+        - name: DATABASE_URL
+          value: "postgresql://sit722_part5_rohith_user:25wfVcucvXtk8Z2lw2QBrbwQkC10ReKv@dpg-crrubad6l47c73coq9s0-a.oregon-postgres.render.com/sit722_part5_rohith"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-catalog
+spec:
+  selector:
+    app: book-catalog
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8008
+      targetPort: 8001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-management
+  template:
+    metadata:
+      labels:
+        app: inventory-management
+    spec:
+      containers:
+      - name: inventory-management
+        image: registry101.azurecr.io/inventory-management:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8002
+        env:
+        - name: PORT
+          value: "8002"
+        - name: DATABASE_URL
+          value: "postgresql://sit722_part5_rohith_user:25wfVcucvXtk8Z2lw2QBrbwQkC10ReKv@dpg-crrubad6l47c73coq9s0-a.oregon-postgres.render.com/sit722_part5_rohith"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-management
+spec:
+  selector:
+    app: inventory-management
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8009
+      targetPort: 8002
